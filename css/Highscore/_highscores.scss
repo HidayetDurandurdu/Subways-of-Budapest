@@ -1,0 +1,274 @@
+@use "./../variables" as *;
+
+#highscores-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 40px 20px;
+    
+    .highscores-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 80%;
+        background: white;
+        padding: 20px 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.75);
+        
+        .highscores-header {
+            text-align: center;
+            
+            h1 {
+                color: $primary-color;
+                font-size: 2.5rem;
+                font-weight: 700;
+            }
+            
+            p {
+                color: #000;
+                font-size: 1.1rem;
+            }
+        }
+        
+        .highscores-body {
+            .leaderboard-list {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                
+                .leaderboard-entry {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    background: white;
+                    padding: 15px 20px;
+                    border-radius: 10px;
+                    transition: all 0.3s ease;
+                    gap: 15px;
+                    
+                    &:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    }
+                    
+                    .rank-section {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        min-width: 60px;
+                        
+                        .rank {
+                            font-size: 1.5rem;
+                            font-weight: 700;
+                            color: $primary-color;
+                        }
+                    }
+                    
+                    .profile-section {
+                        display: flex;
+                        align-items: center;
+                        
+                        .leaderboard-profile-pic {
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                            border: 3px solid $primary-color;
+                        }
+                    }
+                    
+                    .info-section {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 5px;
+                        flex: 1;
+                        
+                        .username {
+                            font-size: 1.2rem;
+                            font-weight: 600;
+                            color: $primary-color;
+                        }
+                        
+                        .meta {
+                            display: flex;
+                            gap: 15px;
+                            font-size: 0.9rem;
+                            color: #666;
+                        }
+                    }
+                    
+                    .score-section {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        min-width: 120px;
+                        
+                        .score {
+                            font-size: 1.8rem;
+                            font-weight: 700;
+                            color: $accent-color;
+                        }
+                        
+                        .label {
+                            font-size: 0.8rem;
+                            color: #666;
+                            text-transform: uppercase;
+                        }
+                    }
+                    
+                    &.current-user {
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        color: white;
+                        
+                        .username {
+                            color: white;
+                            font-weight: 700;
+                        }
+                        
+                        .meta {
+                            color: rgba(255, 255, 255, 0.9);
+                        }
+                        
+                        .score {
+                            color: white;
+                        }
+                        
+                        .label {
+                            color: rgba(255, 255, 255, 0.8);
+                        }
+                    }
+                    
+                    &[data-rank="1"] {
+                        background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+                        
+                        .rank {
+                            font-size: 2rem;
+                            color: white;
+                        }
+                        
+                        .username {
+                            color: white;
+                        }
+                        
+                        .meta {
+                            color: rgba(255, 255, 255, 0.9);
+                        }
+                        
+                        .score {
+                            color: white;
+                        }
+                        
+                        .label {
+                            color: rgba(255, 255, 255, 0.8);
+                        }
+                    }
+                    
+                    &[data-rank="2"] {
+                        background: linear-gradient(135deg, #C0C0C0 0%, #A8A8A8 100%);
+                        
+                        .rank {
+                            color: white;
+                        }
+                        
+                        .username {
+                            color: white;
+                        }
+                        
+                        .meta {
+                            color: rgba(255, 255, 255, 0.9);
+                        }
+                        
+                        .score {
+                            color: white;
+                        }
+                        
+                        .label {
+                            color: rgba(255, 255, 255, 0.8);
+                        }
+                    }
+                    
+                    &[data-rank="3"] {
+                        background: linear-gradient(135deg, #CD7F32 0%, #B87333 100%);
+                        
+                        .rank {
+                            color: white;
+                        }
+                        
+                        .username {
+                            color: white;
+                        }
+                        
+                        .meta {
+                            color: rgba(255, 255, 255, 0.9);
+                        }
+                        
+                        .score {
+                            color: white;
+                        }
+                        
+                        .label {
+                            color: rgba(255, 255, 255, 0.8);
+                        }
+                    }
+                }
+            }
+            
+            .no-scores {
+                text-align: center;
+                padding: 60px 20px;
+                color: #999;
+                font-size: 1.2rem;
+            }
+        }
+        
+        .highscores-footer {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    #highscores-section {
+        .highscores-wrapper {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    #highscores-section {
+        .highscores-wrapper {
+            .highscores-body {
+                .leaderboard-list {
+                    .leaderboard-entry {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 10px;
+                        padding: 15px;
+                        
+                        .rank-section {
+                            min-width: auto;
+                        }
+                        
+                        .info-section {
+                            width: 100%;
+                            
+                            .meta {
+                                flex-direction: column;
+                                gap: 5px;
+                            }
+                        }
+                        
+                        .score-section {
+                            width: 100%;
+                            align-items: flex-start;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

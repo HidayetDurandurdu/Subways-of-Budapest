@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budapest Metro Game - Login</title>
+    <!-- Bootstrap CSS only NO JS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- My custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">  
+</head>
+<body>
+    <!-- Toast Notification Container -->
+    <div id="notificationContainer"></div>
+    <main>
+        <section id="main-menu">
+            <div class="container d-flex flex-column justify-content-center align-items-center h-100">
+                <div class="menu-wrapper">
+                    <div class="menu-header d-flex flex-column flex-md-row gap-3 justify-content-between">
+                        <div class="menu-text w-100">
+                            <h1>Budapest Metro</h1>
+                            <p>Your metro adventure starts here!</p>
+                        </div>
+                        <div class="profile-wrapper d-flex flex-row gap-3 align-items-center justify-content-md-end w-100">
+                            <div class="profile-header">
+                                <div class="name" id="profileName">Guest</div>
+                                <div class="score" id="profileScore">Score: 0</div>
+                            </div>
+                            <div class="profile-image-wrapper">
+                                <img src="../images/profile_placeholder.png" alt="" class="profile-image" id="profileImage">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-body mt-3">
+                        <a href="../html/game.html" class="w-100"><button class="primary-button w-100">Play</button></a>
+                        <div class="rules-wrapper d-flex flex-column flex-md-row gap-3 justify-content-start align-items-center w-100 mt-3">
+                            <button class="secondary-button w-100" id="rulesBtn">Game Rules</button>
+                            <a href="../html/highscores.html" class="w-100"><button class="secondary-button w-100">Highscores</button></a>
+                            <button class="secondary-button w-100" id="settingsBtn">Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rules Modal -->
+    <div class="modal-overlay" id="rulesModal">
+        <div class="modal-wrapper">
+            <div class="modal-header">
+                <h2>Game Rules</h2>
+                <button class="close-button" id="closeRulesBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="rules-section">
+                    <h3>Objective</h3>
+                    <p>Build four metro lines across Budapest to earn the highest score possible.</p>
+                </div>
+
+                <div class="rules-section">
+                    <h3>How to Play</h3>
+                    <ol class="rules-list">
+                        <li>Draw station cards (A, B, C, D, or Joker)</li>
+                        <li>Build metro line segments connecting stations</li>
+                        <li>Each line must start from its designated starting station</li>
+                        <li>Complete 4 rounds (one for each metro line: M1, M2, M3, M4)</li>
+                    </ol>
+                </div>
+
+                <div class="rules-section">
+                    <h3>Building Rules</h3>
+                    <ul class="rules-list">
+                        <li><strong>Click</strong> on a station to build a segment from your current line's endpoint</li>
+                        <li>Segments can be <strong>horizontal, vertical, or diagonal (45°)</strong></li>
+                        <li>Match the card letter (A/B/C/D) or use a Joker</li>
+                        <li>Cannot create loops or intersect existing segments</li>
+                        <li>Cannot skip over other stations</li>
+                        <li>Station ID 30 (Deák tér) acts as a universal Joker station</li>
+                    </ul>
+                </div>
+
+                <div class="rules-section">
+                    <h3>Scoring</h3>
+                    <ul class="rules-list">
+                        <li><strong>Districts:</strong> Number of districts covered × Max stations in one district</li>
+                        <li><strong>Danube Crossings:</strong> Bonus points for crossing the river</li>
+                        <li><strong>Railway Stations:</strong> Points for connecting train stations</li>
+                        <li><strong>Junctions:</strong> Bonus for connecting multiple metro lines at one station</li>
+                    </ul>
+                </div>
+
+                <div class="rules-section">
+                    <h3>Round End</h3>
+                    <p>After drawing 8 cards, the round ends and a new metro line begins. The game ends after completing all 4 rounds.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal-wrapper">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="close-button" id="closeSettingsBtn">&times;</button>
+            </div>
+            <div class="modal-body d-flex flex-column gap-4">
+                <!-- Profile Picture Section -->
+                <div class="settings-section d-flex flex-column gap-3">
+                    <h3>Profile Picture</h3>
+                    <div class="profile-change-wrapper mb-4 d-flex align-items-center gap-3">
+                        <img src="../images/profile_placeholder.png" alt="Current Profile" class="profile-preview" id="settingsProfilePreview">
+                        <div class="d-flex flex-column gap-2">
+                            <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+                            <button class="accent-button" id="changeProfileBtn">Change Picture</button>
+                            <button class="accent-button" id="removeProfileBtn">Remove Picture</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Change Username Section -->
+                <div class="settings-section d-flex flex-column gap-3">
+                    <h3>Change Username</h3>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="newUsername" placeholder="New Username">
+                        <label for="newUsername">New Username</label>
+                    </div>
+                    <p class="error-msg d-none" id="usernameError"></p>
+                    <button class="accent-button mb-4 w-100" id="changeUsernameBtn">Update Username</button>
+                </div>
+
+                <!-- Change Password Section -->
+                <div class="settings-section d-flex flex-column gap-3">
+                    <h3>Change Password</h3>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="currentPassword" placeholder="Current Password">
+                        <label for="currentPassword">Current Password</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="newPassword" placeholder="New Password">
+                        <label for="newPassword">New Password</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="confirmNewPassword" placeholder="Confirm New Password">
+                        <label for="confirmNewPassword">Confirm New Password</label>
+                    </div>
+                    <p class="error-msg d-none" id="passwordError"></p>
+                    <button class="accent-button mb-4 w-100" id="changePasswordBtn">Update Password</button>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="settings-section d-flex flex-column gap-3 danger-zone">
+                    <h3 class="text-danger">Danger Zone</h3>
+                    <button class="btn btn-danger w-100" id="deleteAccountBtn">Delete Account</button>
+                    <button class="btn btn-outline-secondary mb-4 w-100" id="logoutBtnSettings">Logout</button>
+                </div>
+
+                <!-- Game Info -->
+                <div class="settings-section game-info">
+                    <small class="text-muted">Budapest Metro Game v1.0</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include auth.js FIRST, then main-menu.js -->
+    <script src="../js/Menu/auth.js"></script>
+    <script src="../js/Menu/main-menu.js"></script>
+    <script src="../js/Menu/notifications.js"></script>
+    <script src="../js/Menu/settings.js"></script>
+    <!-- Javascript for the background color changing effect -->
+    <script src="../js/menu-bg-effect.js"></script>
+    <!-- Javascript for modal functionality -->
+    <script src="../js/Menu/menu.js"></script>
+</body>
+</html>
